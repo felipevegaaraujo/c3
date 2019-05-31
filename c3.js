@@ -6104,7 +6104,8 @@
         asValue = threshold.unit === 'value',
         values = threshold.values && threshold.values.length ? threshold.values : [],
         max = threshold.max || 100;
-    return notEmpty(threshold) && notEmpty(colors) ? function (value) {
+    return notEmpty(threshold) && notEmpty(colors) ? function (value, new_threshold_values) {
+      values = new_threshold_values || values;
       var i,
           v,
           color = colors[colors.length - 1];
@@ -6440,7 +6441,7 @@
 
     f(url, headers).then(function (data) {
       done.call($$, converter.call($$, data, keys));
-    })["catch"](function (error) {
+    }).catch(function (error) {
       throw error;
     });
   };
@@ -8660,7 +8661,7 @@
     }).attr('x', xForLegendRect).attr('y', yForLegendRect);
     tiles = $$.legend.selectAll('line.' + CLASS.legendItemTile).data(targetIds);
     (withTransition ? tiles.transition() : tiles).style('stroke', $$.levelColor ? function (id) {
-      return $$.levelColor($$.cache[id].values[0].value);
+      return $$.levelColor($$.cache[id].values[0].value, config.color_threshold);
     } : $$.color).attr('x1', x1ForLegendTile).attr('y1', yForLegendTile).attr('x2', x2ForLegendTile).attr('y2', yForLegendTile);
 
     if (background) {
