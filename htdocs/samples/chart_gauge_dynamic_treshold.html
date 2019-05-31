@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <link href="../css/c3.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div id="chart"></div>
+    <div id="chart1"></div>
+    <div id="chart2"></div>
+    <div id="chart3"></div>
+
+    <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+    <script src="../js/c3.js"></script>
+    <script>
+      var chart = c3.generate({
+        data: {
+          columns: [
+            ['Speed', 91]
+          ],
+          type: 'gauge'
+        },
+        gauge: {
+          label: {
+            format: function(value, ratio) {
+              return value;
+            }
+          }
+        },
+        color: {
+          pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'],
+          threshold: {
+            unit : 'value',
+            values: [30, 60, 90, 100]
+          }
+        },
+        size: {
+          height: 120
+        }
+      });
+
+      function updateChart() {
+        var randomValue = 100 + Math.round((Math.random(100)*100));
+        var randomMaxValue = 400 + Math.round((Math.random(100)*100));
+        
+        chart.internal.config.gauge_max = randomMaxValue;
+        //not sure if this is supported by C3JS out of the box
+        chart.internal.config.color_threshold = [
+          Math.round(randomMaxValue/4), 
+          Math.round(randomMaxValue/3), 
+          randomMaxValue - Math.round(randomMaxValue/4), 
+          randomMaxValue 
+        ];
+        
+        chart.load({
+              columns: [['Speed', randomValue]]
+          });
+        
+      }
+
+      setInterval(updateChart, 3000);
+    </script>
+  </body>
+</html>
