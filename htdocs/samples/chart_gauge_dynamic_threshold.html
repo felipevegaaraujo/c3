@@ -39,10 +39,10 @@
 
       function updateChart() {
         var randomValue = 100 + Math.round((Math.random(100)*100));
-        var randomMaxValue = 400 + Math.round((Math.random(100)*100));
+        var randomMaxValue = 350 + Math.round((Math.random(100)*100));
         
         chart.internal.config.gauge_max = randomMaxValue;
-        chart.internal.config.color_threshold = [
+        chart.internal.config.color_threshold.values = [
           Math.round(randomMaxValue/4), 
           Math.round(randomMaxValue/3), 
           randomMaxValue - Math.round(randomMaxValue/4), 
