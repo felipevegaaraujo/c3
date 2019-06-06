@@ -38,9 +38,9 @@ ChartInternal.prototype.generateLevelColor = function () {
     return notEmpty(threshold) && notEmpty(colors) ? function (value, new_threshold_values) {
         values = new_threshold_values || values;
         var i, v, color = colors[colors.length - 1];
-        for (i = 0; i < values.length; i++) {
+        for (i = 0; i < values.values.length; i++) {
             v = asValue ? value : (value * 100 / max);
-            if (v < values[i]) {
+            if (v <= values.values[i]) {
                 color = colors[i];
                 break;
             }
